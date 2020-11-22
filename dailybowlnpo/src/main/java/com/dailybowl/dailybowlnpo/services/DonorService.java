@@ -26,8 +26,8 @@ public class DonorService {
 
     private static final String BASEURL = "https://api.airtable.com/v0/";
 
-    private final String apiKey = "api_key";
-    private final String appId = "app_id";
+    private final String apiKey = "keywasKY5hNOekEkP";
+    private final String appId = "appAbp85icmMHLwBW";
 
     private List<DonorOrgStat> donorOrgStats;
 

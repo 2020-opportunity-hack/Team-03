@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-@RestController
+@Controller
 public class DonorController {
 
     @Resource
@@ -28,6 +30,8 @@ public class DonorController {
 //        List<Integer> valuations = donorService.getValuations();
         List<DonorOrgStat> donorOrgStats = donorService.getDonorOrgStats();
         model.addAttribute("donorOrgStats", donorOrgStats);
+        Comparator<DonorOrgStat> compareByDate = (DonorOrgStat ds1, DonorOrgStat ds2) -> ds2.getDate().compareTo(ds1.getDate());
+        Collections.sort(donorOrgStats, compareByDate);
         System.out.println(Arrays.toString(donorOrgStats.toArray()));
         return "donor";
     }

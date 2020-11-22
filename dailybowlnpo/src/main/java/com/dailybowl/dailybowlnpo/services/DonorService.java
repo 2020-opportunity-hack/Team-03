@@ -1,6 +1,11 @@
 package com.dailybowl.dailybowlnpo.services;
 
 import com.dailybowl.dailybowlnpo.model.DonorOrgStat;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,7 +19,10 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.Writer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,8 +34,9 @@ public class DonorService {
 
     private static final String BASEURL = "https://api.airtable.com/v0/";
 
-    private final String apiKey = "keywasKY5hNOekEkP";
-    private final String appId = "appAbp85icmMHLwBW";
+    private final String apiKey = "api_key";
+    private final String appId = "app_id";
+    private static final String donor_dataCSV = "./target/donor_data.csv";
 
     private List<DonorOrgStat> donorOrgStats;
 
@@ -101,6 +110,24 @@ public class DonorService {
         headers.set("Authorization", "Bearer " + apiKey);
         return headers;
 
+    }
+
+    public void generateCSV(){
+        try (
+                Writer writer = Files.newBufferedWriter(Paths.get(donor_dataCSV));
+        ){
+            StatefulBeanToCsv<DonorOrgStat> beanToCsv = new StatefulBeanToCsvBuilder(writer)
+                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+                    .build();
+
+            beanToCsv.write(donorOrgStats);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvRequiredFieldEmptyException e) {
+            e.printStackTrace();
+        } catch (CsvDataTypeMismatchException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -33,7 +33,9 @@ public class DonorController {
         Comparator<DonorOrgStat> compareByDate = (DonorOrgStat ds1, DonorOrgStat ds2) -> ds2.getDate().compareTo(ds1.getDate());
         Collections.sort(donorOrgStats, compareByDate);
         System.out.println(Arrays.toString(donorOrgStats.toArray()));
+        donorService.generateCSV();
         return "donor";
     }
+
 
 }

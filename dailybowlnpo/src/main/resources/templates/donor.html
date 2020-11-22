@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Daily Bowl</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" type="text/css" media="all"-->
+    <!--          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
+</head>
+
+<body>
+<div class = "container">
+
+    <h1>Daily Bowl</h1>
+    <p> Donor Landing Page</p>
+
+
+
+    <table class = "table">
+        <tr>
+            <th>Date</th>
+            <th>Weight</th>
+            <th>Valuation</th>
+
+        </tr>
+        <tr th:each="stat : ${donorOrgStats}">
+            <td th:text="${stat.date}"></td>
+            <td th:text="${stat.weight}"></td>
+            <td th:text="${stat.valuation}"></td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+
+</html>

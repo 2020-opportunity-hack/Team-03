@@ -44,11 +44,14 @@
     }
 </script>
 <div class = "container">
-    <h3 style="padding-top:30px"> Welcome, <span th:text="${currentUserName}"></span>. We are pleased to see you back !</h3>
-    <br>
-    <br>
-    <br>
-    <table style="text-align:center;" id = "donortable" class = "table">
+
+    <h1>Daily Bowl</h1>
+    <p> Donor Landing Page</p>
+
+
+
+
+    <table id = "donortable" class = "table">
         <tr>
             <th>Name</th>
             <th>Food Type</th>
@@ -68,10 +71,6 @@
     </table>
 <!--    <form method="get" action="signin.html">    <input type="submit">Download!</input> </form>-->
     <button onclick="download_table_as_csv('donortable',',')"> DownloadCSV </button>
-    <br>
-    <br>
-    <br>
-    
 </div>
 
 

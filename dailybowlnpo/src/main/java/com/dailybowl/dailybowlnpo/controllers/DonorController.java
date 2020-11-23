@@ -33,6 +33,7 @@ public class DonorController {
 //        List<Integer> valuations = donorService.getValuations();
         List<DonorOrgStat> donorOrgStats = donorService.getDonorOrgStats();
         model.addAttribute("donorOrgStats", donorOrgStats);
+        model.addAttribute("currentUserName", user.getName());
         Comparator<DonorOrgStat> compareByDate = (DonorOrgStat ds1, DonorOrgStat ds2) -> ds2.getDate().compareTo(ds1.getDate());
         Collections.sort(donorOrgStats, compareByDate);
         System.out.println(Arrays.toString(donorOrgStats.toArray()));

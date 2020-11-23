@@ -37,7 +37,7 @@ public class SignInController {
 			redirectAttributes.addFlashAttribute("currentUser", user);
         	return "redirect:/donor";
         }
-    	System.out.println("Not found");
+        model.addAttribute("errorMsg","User Not found");
     	return "signin"; 
 	}
 }

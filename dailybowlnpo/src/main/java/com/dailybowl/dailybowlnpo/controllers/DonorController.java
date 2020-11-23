@@ -1,11 +1,13 @@
 package com.dailybowl.dailybowlnpo.controllers;
 
 import com.dailybowl.dailybowlnpo.model.DonorOrgStat;
+import com.dailybowl.dailybowlnpo.model.User;
 import com.dailybowl.dailybowlnpo.services.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -22,9 +24,9 @@ public class DonorController {
     private DonorService donorService;
 
     @GetMapping("/donor")
-    public String getDonors(Model model) throws IOException {
-
-        donorService.makeGETApiRequest("Food Donors");
+    public String getDonors(@ModelAttribute User currentUser, Model model) throws IOException {
+        String orgName = "Bharat Bazar";
+        donorService.makeGETApiRequest("Food Donors", orgName);
 //        List<String> dates = donorService.getDates();
 //        List<Integer> weights = donorService.getWeights();
 //        List<Integer> valuations = donorService.getValuations();

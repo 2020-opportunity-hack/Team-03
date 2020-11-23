@@ -34,8 +34,8 @@ public class DonorService {
 
     private static final String BASEURL = "https://api.airtable.com/v0/";
 
-    private final String apiKey = "keywasKY5hNOekEkP";
-    private final String appId = "appAbp85icmMHLwBW";
+    private final String apiKey = "api_key";
+    private final String appId = "app_id";
     private static final String donor_dataCSV = "./target/donor_data.csv";
 
     private List<DonorOrgStat> donorOrgStats;
@@ -44,7 +44,7 @@ public class DonorService {
         return donorOrgStats;
     }
 
-    public String makeGETApiRequest(String query) throws IOException {
+    public String makeGETApiRequest(String query, String donorOrg) throws IOException {
         HttpEntity<String> entity = new HttpEntity<String>("parameters", signRequest(new HttpHeaders()));
 //        System.out.println(entity.toString());
         ResponseEntity<String> response = restTemplate.exchange(queryFor(query), HttpMethod.GET, entity, String.class);
@@ -52,7 +52,7 @@ public class DonorService {
         JSONObject jsonObj = new JSONObject(response.getBody());
         JSONArray records = jsonObj.getJSONArray("records");
 
-        String donorOrg = "Bharat Bazar";
+//        String donorOrg = "Bharat Bazar";
 //        System.out.println(donorOrg);
 //        System.out.println(records.getJSONObject(0).getJSONObject("fields").getString("Name Of Organization"));
         JSONArray produceDonationsTally = new JSONArray();
@@ -126,8 +126,8 @@ public class DonorService {
         String deliveredTo = "";
         for(int i = 0; i<records.length(); i++){
             JSONObject record = records.getJSONObject(i);
-            if(record.getJSONObject("fields").getString("Name").equals("New Bridge"))
-                System.out.println(record.getJSONObject("fields").getString("Name"));
+//            if(record.getJSONObject("fields").getString("Name").equals("New Bridge"))
+//                System.out.println(record.getJSONObject("fields").getString("Name"));
             if(deliveryId.equals(record.getString("id"))){
                 deliveredTo = record.getJSONObject("fields").getString("Name");
                 break;

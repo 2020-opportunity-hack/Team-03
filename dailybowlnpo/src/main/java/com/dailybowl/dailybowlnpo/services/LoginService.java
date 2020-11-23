@@ -29,8 +29,8 @@ public class LoginService {
 
     private static final String BASEURL = "https://api.airtable.com/v0/";
 
-    private final String apiKey = "Enter API key";
-    private final String appId = "Enter App Id";
+    private final String apiKey = "api_key";
+    private final String appId = "app_id";
     
     private String responseValue;
 //    private ArrayList<String> names;

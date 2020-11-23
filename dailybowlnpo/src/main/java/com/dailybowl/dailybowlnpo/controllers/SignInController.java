@@ -33,7 +33,7 @@ public class SignInController {
         boolean present = loginService.checkIfNamePresentInTable("Food Donors", user.getName());
         if(present){
         	model.addAttribute("currentUser", user);
-        	return "donor";
+        	return "redirect:/donor";
         }
     	System.out.println("Not found");
     	return "signin"; 

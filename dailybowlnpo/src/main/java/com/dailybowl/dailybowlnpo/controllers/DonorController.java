@@ -24,9 +24,10 @@ public class DonorController {
     private DonorService donorService;
 
     @GetMapping("/donor")
-    public String getDonors(@ModelAttribute User currentUser, Model model) throws IOException {
-        String orgName = "Bharat Bazar";
-        donorService.makeGETApiRequest("Food Donors", orgName);
+    public String getDonors(@ModelAttribute("currentUser") User user, Model model) throws IOException {
+//        String orgName = "Bharat Bazar";
+        System.out.println(user.getName());
+        donorService.makeGETApiRequest("Food Donors", user.getName());
 //        List<String> dates = donorService.getDates();
 //        List<Integer> weights = donorService.getWeights();
 //        List<Integer> valuations = donorService.getValuations();

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.dailybowl.dailybowlnpo.services.LoginService;
 import com.dailybowl.dailybowlnpo.model.DonorOrgStat;
 import com.dailybowl.dailybowlnpo.model.User;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class SignInController {
@@ -29,10 +30,11 @@ public class SignInController {
 	}
 	
 	@RequestMapping(value={"/signin"},method = RequestMethod.POST)
-	public String confirmUserSubmission (@ModelAttribute User user, Model model) throws IOException{
+	public String confirmUserSubmission (@ModelAttribute User user, Model model, final RedirectAttributes redirectAttributes) throws IOException{
         boolean present = loginService.checkIfNamePresentInTable("Food Donors", user.getName());
         if(present){
-        	model.addAttribute("currentUser", user);
+//        	model.addAttribute("currentUser", user);
+			redirectAttributes.addFlashAttribute("currentUser", user);
         	return "redirect:/donor";
         }
     	System.out.println("Not found");

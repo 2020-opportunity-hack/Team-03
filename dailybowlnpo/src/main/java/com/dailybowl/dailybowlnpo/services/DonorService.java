@@ -34,8 +34,8 @@ public class DonorService {
 
     private static final String BASEURL = "https://api.airtable.com/v0/";
 
-    private final String apiKey = "api_key";
-    private final String appId = "app_id";
+    private final String apiKey = "keywasKY5hNOekEkP";
+    private final String appId = "appAbp85icmMHLwBW";
     private static final String donor_dataCSV = "./target/donor_data.csv";
 
     private List<DonorOrgStat> donorOrgStats;
@@ -92,6 +92,12 @@ public class DonorService {
 //                System.out.println("Weight in lbs = " +fields.getInt("Weight (in lbs)"));
 //                System.out.println("Average Valuation = " +fields.getInt("Average Valuation (at $2.50/lb)"));
 //                System.out.println();
+                String donorName = getDonorDetails(fields.getJSONArray("Source").getString(0), "Food donors");
+                donorOrgStat.setName(donorName);
+                String foodType = getFoodType(fields.getJSONArray("Items in General").getString(0), "Food Donation Types");
+                donorOrgStat.setFoodType(foodType);
+                String deliveredTo = getDeliveredTo(fields.getJSONArray("Delivered to").getString(0), "Organizations");
+                donorOrgStat.setDeliveredTo(deliveredTo);
                 donorOrgStat.setDate(fields.getString("Date"));
                 donorOrgStat.setWeight(fields.getInt("Weight (in lbs)"));
                 donorOrgStat.setValuation(fields.getInt("Average Valuation (at $2.50/lb)"));
@@ -110,6 +116,56 @@ public class DonorService {
         headers.set("Authorization", "Bearer " + apiKey);
         return headers;
 
+    }
+
+    private String getDeliveredTo(String deliveryId, String tableName) {
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", signRequest(new HttpHeaders()));
+        ResponseEntity<String> response = restTemplate.exchange(queryFor(tableName), HttpMethod.GET, entity, String.class);
+        JSONObject jsonObj = new JSONObject(response.getBody());
+        JSONArray records = jsonObj.getJSONArray("records");
+        String deliveredTo = "";
+        for(int i = 0; i<records.length(); i++){
+            JSONObject record = records.getJSONObject(i);
+            if(record.getJSONObject("fields").getString("Name").equals("New Bridge"))
+                System.out.println(record.getJSONObject("fields").getString("Name"));
+            if(deliveryId.equals(record.getString("id"))){
+                deliveredTo = record.getJSONObject("fields").getString("Name");
+                break;
+            }
+        }
+        return deliveredTo;
+    }
+
+    private String getFoodType(String foodTypeId, String tableName) {
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", signRequest(new HttpHeaders()));
+        ResponseEntity<String> response = restTemplate.exchange(queryFor(tableName), HttpMethod.GET, entity, String.class);
+        JSONObject jsonObj = new JSONObject(response.getBody());
+        JSONArray records = jsonObj.getJSONArray("records");
+        String foodType = "";
+        for(int i = 0; i<records.length(); i++){
+            JSONObject record = records.getJSONObject(i);
+            if(foodTypeId.equals(record.getString("id"))){
+                foodType = record.getJSONObject("fields").getString("Donation Type");
+                break;
+            }
+        }
+        return foodType;
+    }
+
+    private String getDonorDetails(String donorId, String tableName) {
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", signRequest(new HttpHeaders()));
+        ResponseEntity<String> response = restTemplate.exchange(queryFor(tableName), HttpMethod.GET, entity, String.class);
+        JSONObject jsonObj = new JSONObject(response.getBody());
+        JSONArray records = jsonObj.getJSONArray("records");
+        String donorName = "";
+        for(int i = 0; i<records.length(); i++){
+            JSONObject record = records.getJSONObject(i);
+            if(donorId.equals(record.getString("id"))){
+                donorName = record.getJSONObject("fields").getString("Name Of Organization");
+                break;
+            }
+        }
+        return donorName;
     }
 
     public void generateCSV(){

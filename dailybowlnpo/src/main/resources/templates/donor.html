@@ -20,15 +20,20 @@
 
     <table class = "table">
         <tr>
-            <th>Date</th>
+            <th>Name</th>
+            <th>Food Type</th>
             <th>Weight</th>
             <th>Valuation</th>
-
+            <th>Delivered To</th>
+            <th>Date</th>
         </tr>
         <tr th:each="stat : ${donorOrgStats}">
-            <td th:text="${stat.date}"></td>
+            <td th:text="${stat.name}"></td>
+            <td th:text="${stat.foodType}"></td>
             <td th:text="${stat.weight}"></td>
             <td th:text="${stat.valuation}"></td>
+            <td th:text="${stat.deliveredTo}"></td>
+            <td th:text="${stat.date}"></td>
         </tr>
     </table>
 

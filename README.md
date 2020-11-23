@@ -12,6 +12,26 @@ Founded in 2016, Daily Bowl rescues excess/blemished produce and rapidly redistr
 - Generating a report from the data used for grant writing as well as by the donor for tax reporting.
 
 ---
+### Setup Instructions
+- Download the IDE of your choice: IntelliJ/Eclipse/STS baseod on your OS
+- git clone (https://github.com/2020-opportunity-hack/Team-03.git)
+- Open the IDE and import the project from the downloaded location
+- Set the necessary API key and App Id in the services
+- Click Run
+- Go to (localhost:8080/signin)
+
+---
+### Technology Used
+- Backend
+  - Java 
+  - Spring Boot
+  - Maven
+  - Airtable (Database)
+- Frontend
+  - Thymeleaf
+  - Bootstrap
+
+---
 ### Contributors
 - Yash Sarvaiya
 - Yash Barapatre
